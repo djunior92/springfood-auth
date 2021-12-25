@@ -26,23 +26,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients
-                .inMemory()
+        clients.
+            inMemory()
                 .withClient("springfood-web")
                 .secret(passwordEncoder.encode("web123"))
                 .authorizedGrantTypes("password", "refresh_token")
-//				.authorizedGrantTypes("password", "refresh_token", "client_credentials")
                 .scopes("write", "read")
                 .accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
                 .refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
 
-                .and()
+            .and()
+                .withClient("foodnanalytics")
+                .secret(passwordEncoder.encode("food123"))
+                .authorizedGrantTypes("authorization_code")
+                .scopes("write", "read")
+                .redirectUris("http://aplicacao-cliente")
+
+            .and()
                 .withClient("faturamento")
                 .secret(passwordEncoder.encode("faturamento123"))
                 .authorizedGrantTypes("client_credentials")
                 .scopes("write", "read")
 
-                .and()
+            .and()
                 .withClient("checktoken")
                 .secret(passwordEncoder.encode("check123"));
     }
