@@ -31,9 +31,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("springfood-web")
                 .secret(passwordEncoder.encode("web123"))
                 .authorizedGrantTypes("password", "refresh_token")
+//				.authorizedGrantTypes("password", "refresh_token", "client_credentials")
                 .scopes("write", "read")
                 .accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
                 .refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
+
+                .and()
+                .withClient("faturamento")
+                .secret(passwordEncoder.encode("faturamento123"))
+                .authorizedGrantTypes("client_credentials")
+                .scopes("write", "read")
+
                 .and()
                 .withClient("checktoken")
                 .secret(passwordEncoder.encode("check123"));
