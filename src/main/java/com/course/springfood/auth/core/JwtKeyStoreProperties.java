@@ -1,4 +1,4 @@
-package com.course.springfood.auth;
+package com.course.springfood.auth.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
